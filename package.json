@@ -1,0 +1,28 @@
+{
+  "name": "glowing-spoon",
+  "version": "0.0.1",
+  "description": "Assignment for Vrillar",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pinethree/glowing-spoon"
+  },
+  "scripts": {
+    "lint": "ts-standard",
+    "lint:fix": "ts-standard --fix",
+    "build": "tsc"
+  },
+  "author": "Tung Nguyen",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12"
+  },
+  "devDependencies": {
+    "eslint": "^8.42.0",
+    "ts-standard": "^12.0.2",
+    "typescript": "^4.9.4"
+  },
+  "ts-standard": {
+    "project": "./tsconfig.json"
+  }
+}
