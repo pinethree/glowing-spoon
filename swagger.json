@@ -1,0 +1,271 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Vrillar API",
+    "version": "1.0.0",
+    "description": "API documentation for the Vrillar assignment"
+  },
+  "paths": {
+    "/api/drivers": {
+      "get": {
+        "summary": "Get a list of drivers",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The number of drivers per page",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "firstName",
+            "in": "query",
+            "description": "Filter drivers by first name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lastName",
+            "in": "query",
+            "description": "Filter drivers by last name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "nationality",
+            "in": "query",
+            "description": "Filter drivers by nationality",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "description": "Filter drivers by year",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/drivers/{id}": {
+      "get": {
+        "summary": "Get a driver by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the driver",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/drivers/{id}/rankings": {
+      "get": {
+        "summary": "Get the rankings for a driver",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the driver",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/teams": {
+      "get": {
+        "summary": "Get a list of teams",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The number of teams per page",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "description": "Filter teams by year",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Filter teams by name",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/teams/{id}": {
+      "get": {
+        "summary": "Get a team by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the team",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/teams/{id}/rankings": {
+      "get": {
+        "summary": "Get the rankings for a team",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the team",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/races": {
+      "get": {
+        "summary": "Get a list of races",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The number of races per page",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "description": "Filter races by year",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "granPrix",
+            "in": "query",
+            "description": "Filter races by Gran Prix",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "team",
+            "in": "query",
+            "description": "Filter races by team",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/races/{id}": {
+      "get": {
+        "summary": "Get a race by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the race",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  }
+}

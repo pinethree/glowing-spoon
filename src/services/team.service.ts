@@ -22,7 +22,7 @@ export class TeamService {
       .offset(offset)
 
     if (name !== undefined) {
-      query = query.where('teams.name', '=', name)
+      query = query.where('teams.name', 'ilike', `%${name}%`)
     }
 
     return await query.execute()

@@ -1,13 +1,22 @@
 import express from 'express'
 import routes from './routes'
+import swaggerUI from 'swagger-ui-express'
+import swaggerSpec from '../swagger.json'
 
 const app = express()
+
+app.get('/swagger.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json')
+  res.send(swaggerSpec)
+})
+
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use('/api', routes)
 
-const PORT = 3000
+const PORT = 8294
 app.listen(PORT, () => {
-  console.log(`Server is running on :${PORT}`)
+  console.log(`Server is running at localhost:${PORT}`)
 })
