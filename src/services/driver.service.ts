@@ -10,9 +10,15 @@ export class DriverService {
     this.db = db
   }
 
-  async getList ({ page, limit, firstName, lastName, nationality }: GetDriversOptions) {
+  async getList ({ page, limit, firstName, lastName, nationality, year }: GetDriversOptions) {
     const offset = (page - 1) * limit
-    let query = this.db.selectFrom('drivers').selectAll().limit(limit).offset(offset)
+    let query = this.db.selectFrom('drivers')
+      .innerJoin('driverTeams', 'driverTeams.driverId', 'drivers.id')
+      .innerJoin('teams', 'teams.id', 'driverTeams.teamId')
+      .select(['drivers.id', 'drivers.firstName', 'drivers.lastName', 'drivers.nationality', 'teams.name as team', 'driverTeams.position'])
+      .where('driverTeams.year', '=', year)
+      .limit(limit)
+      .offset(offset)
 
     if (firstName) {
       query = query.where('firstName', '=', firstName)

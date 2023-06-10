@@ -11,13 +11,14 @@ export class DriverController {
 
   getAllDrivers = async (req: Request, res: Response) => {
     try {
-      const { page, limit, firstName, lastName, nationality } = req.query
+      const { page, limit, firstName, lastName, nationality, year } = req.query
       const opts: GetDriversOptions = {
         page: parseInt(page as string) || 1,
         limit: parseInt(limit as string) || 10,
         firstName: firstName as string,
         lastName: lastName as string,
-        nationality: nationality as string
+        nationality: nationality as string,
+        year: parseInt(year as string) || 2023 // <-- should be dynamic here
       }
 
       const drivers = await this.driverService.getList(opts)
