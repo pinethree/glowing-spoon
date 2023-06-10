@@ -1,5 +1,5 @@
 
-import { Kysely } from 'kysely'
+import { Kysely, sql } from 'kysely'
 import { Database } from '../db/connection'
 import { GetDriversOptions } from '../types'
 
@@ -45,5 +45,16 @@ export class DriverService {
       .distinctOn('drivers.id')
       .select(['drivers.id', 'drivers.firstName', 'drivers.lastName', 'drivers.nationality', 'teams.name as team', 'driverTeams.position'])
       .where('drivers.id', '=', id).execute()
+  }
+
+  async getRankingByDriverID (id: number) {
+    return await this.db
+      .selectFrom('drivers')
+      .innerJoin('driverTeams', 'driverTeams.driverId', 'drivers.id')
+      .innerJoin('teams', 'teams.id', 'driverTeams.teamId')
+      .select(['drivers.id', 'drivers.firstName', 'drivers.lastName', 'drivers.nationality', 'teams.name as team', 'driverTeams.position', 'driverTeams.year'])
+      .where('drivers.id', '=', id)
+      .orderBy('driverTeams.year', 'desc')
+      .execute()
   }
 }

@@ -29,7 +29,7 @@ export class RaceController {
 
   getRaceById = async (req: Request, res: Response) => {
     try {
-      const id = parseInt(req.params.id)
+      const id = Number(req.params.id)
       const race = await this.raceService.getByID(id)
       res.json(race)
     } catch (error) {
