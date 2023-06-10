@@ -1,5 +1,5 @@
 
-import { Kysely } from 'kysely'
+import { Kysely, OrderByDirectionExpression, OrderByExpression } from 'kysely'
 import { Database, Driver } from '../db/connection'
 import { GetDriversOptions } from '../types'
 
@@ -10,13 +10,15 @@ export class DriverService {
     this.db = db
   }
 
-  async getList ({ page, limit, firstName, lastName, nationality, year }: GetDriversOptions) {
+  async getList ({ page, limit, firstName, lastName, nationality, year, orderBy }: GetDriversOptions) {
     const offset = (page - 1) * limit
+
     let query = this.db.selectFrom('drivers')
       .innerJoin('driverTeams', 'driverTeams.driverId', 'drivers.id')
       .innerJoin('teams', 'teams.id', 'driverTeams.teamId')
       .select(['drivers.id', 'drivers.firstName', 'drivers.lastName', 'drivers.nationality', 'teams.name as team', 'driverTeams.position'])
       .where('driverTeams.year', '=', year)
+      .orderBy('driverTeams.points', 'desc')
       .limit(limit)
       .offset(offset)
 
@@ -36,6 +38,12 @@ export class DriverService {
   }
 
   async getByID (id: number) {
-    return await this.db.selectFrom('drivers').selectAll().where('id', '=', id).execute()
+    return await this.db
+      .selectFrom('drivers')
+      .innerJoin('driverTeams', 'driverTeams.driverId', 'drivers.id')
+      .innerJoin('teams', 'teams.id', 'driverTeams.teamId')
+      .distinctOn('drivers.id')
+      .select(['drivers.id', 'drivers.firstName', 'drivers.lastName', 'drivers.nationality', 'teams.name as team', 'driverTeams.position'])
+      .where('drivers.id', '=', id).execute()
   }
 }

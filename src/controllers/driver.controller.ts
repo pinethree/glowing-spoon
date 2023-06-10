@@ -9,7 +9,7 @@ export class DriverController {
     this.driverService = driverService
   }
 
-  getAllDrivers = async (req: Request, res: Response) => {
+  getListDrivers = async (req: Request, res: Response) => {
     try {
       const { page, limit, firstName, lastName, nationality, year } = req.query
       const opts: GetDriversOptions = {
