@@ -15,7 +15,9 @@
   "author": "Tung Nguyen",
   "license": "ISC",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.12"
+    "bottleneck": "^2.19.5",
+    "cheerio": "^1.0.0-rc.12",
+    "csv-writer": "^1.6.0"
   },
   "devDependencies": {
     "eslint": "^8.42.0",
