@@ -21,7 +21,7 @@ export class TeamService {
       .limit(limit)
       .offset(offset)
 
-    if (name) {
+    if (name !== undefined) {
       query = query.where('teams.name', '=', name)
     }
 

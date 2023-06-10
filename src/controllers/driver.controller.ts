@@ -13,12 +13,12 @@ export class DriverController {
     try {
       const { page, limit, firstName, lastName, nationality, year } = req.query
       const opts: GetDriversOptions = {
-        page: parseInt(page as string) || 1,
-        limit: parseInt(limit as string) || 10,
+        page: Number(page) || 1,
+        limit: Number(limit) || 10,
         firstName: firstName as string,
         lastName: lastName as string,
         nationality: nationality as string,
-        year: parseInt(year as string) || 2023 // <-- should be dynamic here
+        year: Number(year) || 2023 // <-- should be dynamic here
       }
 
       const drivers = await this.driverService.getList(opts)

@@ -13,10 +13,10 @@ export class TeamController {
     try {
       const { page, limit, name, year } = req.query
       const opts: GetTeamsOptions = {
-        page: parseInt(page as string) || 1,
-        limit: parseInt(limit as string) || 10,
+        page: Number(page) || 1,
+        limit: Number(limit) || 10,
         name: name as string,
-        year: parseInt(year as string) || 2023 // <-- should be dynamic here
+        year: Number(year) || 2023 // <-- should be dynamic here
       }
 
       const teams = await this.teamService.getList(opts)

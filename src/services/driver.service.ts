@@ -1,6 +1,6 @@
 
-import { Kysely, OrderByDirectionExpression, OrderByExpression } from 'kysely'
-import { Database, Driver } from '../db/connection'
+import { Kysely } from 'kysely'
+import { Database } from '../db/connection'
 import { GetDriversOptions } from '../types'
 
 export class DriverService {
@@ -10,7 +10,7 @@ export class DriverService {
     this.db = db
   }
 
-  async getList ({ page, limit, firstName, lastName, nationality, year, orderBy }: GetDriversOptions) {
+  async getList ({ page, limit, firstName, lastName, nationality, year }: GetDriversOptions) {
     const offset = (page - 1) * limit
 
     let query = this.db.selectFrom('drivers')
@@ -22,15 +22,15 @@ export class DriverService {
       .limit(limit)
       .offset(offset)
 
-    if (firstName) {
+    if (firstName !== undefined) {
       query = query.where('firstName', '=', firstName)
     }
 
-    if (lastName) {
+    if (lastName !== undefined) {
       query = query.where('lastName', '=', lastName)
     }
 
-    if (nationality) {
+    if (nationality !== undefined) {
       query = query.where('nationality', '=', nationality)
     }
 
