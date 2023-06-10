@@ -17,9 +17,12 @@ This repo use for assignment of Vrillar, the name is random when create repo :)
 
 ### Docker
 - Navigate to the root of the project `glowing-spoon/`.
-- Run `docker compose up -d` to start both database and application.
+- Run `docker compose up -d` to start both database and application ( or `docker-compose up -d` if you are on Windows). 
 - Run `docker exec -it vrillar_db psql -U root -d vrillar -f /sql/import.sql` to seed the database.
 - You now have your server listening and serving at `localhost:8294`.
+- To clean up
+  - Run `docker compose down` (`docker-compose down` on Windows) in the root of the project `glowing-spoon/`
+  - Run `docker rmi glowing-spoon-app` to remove the docker image
 
 ## Endpoints available
 You can navigate to `localhost:8294/api-docs` to see available endpoints.
