@@ -2,7 +2,6 @@ export interface QueryOptions {
   page: number
   limit: number
   year: number
-  orderBy?: string
 }
 
 export interface GetDriversOptions extends QueryOptions {
@@ -13,4 +12,9 @@ export interface GetDriversOptions extends QueryOptions {
 
 export interface GetTeamsOptions extends QueryOptions {
   name?: string
+}
+
+export interface GetRaceOptions extends QueryOptions {
+  grandPrix?: string
+  team?: string
 }
