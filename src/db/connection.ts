@@ -1,3 +1,5 @@
+import dotenv from 'dotenv'
+
 import { Pool } from 'pg'
 import {
   Kysely,
@@ -5,10 +7,7 @@ import {
   Generated,
   CamelCasePlugin
 } from 'kysely'
-
-// const pool = new Pool({
-//   connectionString: 'postgres://root:postgres@localhost:5432/vrillar'
-// })
+dotenv.config()
 
 export interface Team {
   id: Generated<number>
@@ -61,11 +60,11 @@ export interface Database {
 const db = new Kysely<Database>({
   dialect: new PostgresDialect({
     pool: new Pool({
-      host: 'localhost',
-      database: 'vrillar',
-      user: 'root',
-      password: 'postgres',
-      port: 5432
+      host: process.env.DB_HOST,
+      database: process.env.DB_NAME || 'vrillar',
+      user: process.env.DB_USER || 'root',
+      password: process.env.DB_PASSWORD || 'postgres',
+      port: Number(process.env.DB_HOST)
     })
   }),
   plugins: [new CamelCasePlugin()]

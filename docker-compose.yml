@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:alpine
+    container_name: vrillar_db
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=vrillar
+    volumes:
+      - ./setup/data:/data
+      - ./setup/sql:/sql
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vrillar_app
+    ports:
+      - 8294:8294
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+    depends_on:
+      - db
+
