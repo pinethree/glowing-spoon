@@ -87,7 +87,7 @@ You can navigate to `localhost:8294/api-docs` to see available endpoints.
   - Judging from the data, it seems that the entities are closely related (e.g., a driver belongs to a team, a race may have many participating teams).
   - I have no clue about MongoDB,so PostgreSQL was the natural choice.
 - **Minor things**
-  - I use [ts-standard](https://www.npmjs.com/package/ts-standard)a TypeScript style guide, along with a linter and an automatic code fixer based on StandardJS.
+  - I use [ts-standard](https://www.npmjs.com/package/ts-standard) a TypeScript style guide, along with a linter and an automatic code fixer based on StandardJS.
     - Setting up eslint, prettier, and webpack would be overkill for this project.
     - Some may argue that setting up a linter is unnecessary, but I believe that beautiful code is important, so I've included a simple yet effective linter in the project.
   
