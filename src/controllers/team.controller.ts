@@ -28,11 +28,23 @@ export class TeamController {
 
   getTeamById = async (req: Request, res: Response) => {
     try {
-      const id = parseInt(req.params.id)
+      const id = Number(req.params.id)
       const team = await this.teamService.getByID(id)
       res.json(team)
     } catch (error) {
       // Handle the error
+      res.status(400).json({ message: 'Bad Request' })
+    }
+  }
+
+  getRanking = async (req: Request, res: Response) => {
+    try {
+      const id = Number(req.params.id)
+      const rankings = await this.teamService.getRankingByTeamID(id)
+      res.json(rankings)
+    } catch (error) {
+      // Handle the error
+      console.log(error)
       res.status(400).json({ message: 'Bad Request' })
     }
   }

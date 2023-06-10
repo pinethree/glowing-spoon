@@ -18,8 +18,10 @@ const router = Router()
 
 router.get('/drivers', driverController.getListDrivers)
 router.get('/drivers/:id', driverController.getDriverByID)
+router.get('/drivers/:id/rankings', driverController.getRanking)
 router.get('/teams', teamController.getListTeams)
 router.get('/teams/:id', teamController.getTeamById)
+router.get('/teams/:id/rankings', teamController.getRanking)
 router.get('/races', raceController.getListRaces)
 router.get('/races/:id', raceController.getRaceById)
 

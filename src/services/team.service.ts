@@ -37,4 +37,14 @@ export class TeamService {
       .where('teams.id', '=', id)
       .execute()
   }
+
+  async getRankingByTeamID (id: number) {
+    return await this.db
+      .selectFrom('teams')
+      .innerJoin('teamPoints', 'teamPoints.teamId', 'teams.id')
+      .select(['teams.id', 'teams.name', 'teamPoints.year', 'teamPoints.position', 'teamPoints.points'])
+      .where('teams.id', '=', id)
+      .orderBy('teamPoints.year', 'desc')
+      .execute()
+  }
 }
