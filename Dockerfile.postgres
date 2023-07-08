@@ -1,0 +1,6 @@
+# Use the official Node.js LTS (Long Term Support) image as the base image
+FROM postgres:alpine
+
+WORKDIR /
+
+COPY setup/sql/import.sql /docker-entrypoint-initdb.d/

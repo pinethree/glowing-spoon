@@ -1,9 +1,13 @@
 # glowing-spoon
+
 This repo use for assignment of Vrillar, the name is random when create repo :)
 
 ## How to setup
+
 **Make sure you have [Docker](https://www.docker.com/) on your machine, if you don't know about it or don't want to install it, we can stop here, I fail.**
+
 ### Manual
+
 - Make sure you have the `make` command and Node.js LTS installed.
   - Assuming you are familiar with Docker setup and have Docker running.
   - Most likely, you already have the `make` command available.
@@ -16,19 +20,32 @@ This repo use for assignment of Vrillar, the name is random when create repo :)
 - You now have your server listening and serving at `localhost:8294`.
 
 ### Docker
+
 - Navigate to the root of the project `glowing-spoon/`.
-- Run `docker compose up -d` to start both database and application ( or `docker-compose up -d` if you are on Windows). 
+- Run `docker compose up -d` to start both database and application ( or `docker-compose up -d` if you are on Windows).
 - Run `docker exec -it vrillar_db psql -U root -d vrillar -f /sql/import.sql` to seed the database.
 - You now have your server listening and serving at `localhost:8294`.
 - To clean up
   - Run `docker compose down` (`docker-compose down` on Windows) in the root of the project `glowing-spoon/`
   - Run `docker rmi glowing-spoon-app` to remove the docker image
 
+### Minikube
+
+- Ensure your machine have `kubectl`, `minikube`, `lens k8s`
+- Build crawler image `docker build -t <name>:<tag> -f Dockerfile.crawler .`
+- Build postgres image `docker build -t <name>:<tag> -f Dockerfile.postgres .`
+- Build app image `docker build -t <name>:<tag> -f Dockerfile .`
+- Load images into minikube `minikube image load <image>`
+- `kubectl apply -f deployment.yml `
+
 ## Endpoints available
+
 You can navigate to `localhost:8294/api-docs` to see available endpoints.
 
 ## Project structure
+
 ---
+
 ```
 .
 ├── Makefile
@@ -43,7 +60,7 @@ You can navigate to `localhost:8294/api-docs` to see available endpoints.
 │   └── sql
 │       └── import.sql
 ├── src
-│   ├── app.ts                     
+│   ├── app.ts
 │   ├── controllers
 │   │   ├── driver.controller.ts
 │   │   ├── race.controller.ts
@@ -77,12 +94,13 @@ You can navigate to `localhost:8294/api-docs` to see available endpoints.
 - tsconfig.json: A configuration file for the TypeScript compiler that specifies compilation options and project settings.
 
 ## Techs choice and reason
+
 - [Express](https://www.npmjs.com/package/express) is the default choice for building REST APIs.
 - [Kysely](https://www.npmjs.com/package/kysely): (pronounced "Key-Seh-Lee") is a type-safe and autocompletion-friendly TypeScript SQL query builder.
   - I feel that using an ORM would be overkill for this project.
   - Writing raw SQL can be a pain, especially when we need to create dynamic queries.
   - Query builders strike a sweet balance; they are easy to set up and incredibly powerful.
-  - Btw,  I discovered `kysely` during this project, and I had a lot of fun learning something new.
+  - Btw, I discovered `kysely` during this project, and I had a lot of fun learning something new.
 - **Postgres** is the chosen relational database.
   - Judging from the data, it seems that the entities are closely related (e.g., a driver belongs to a team, a race may have many participating teams).
   - I have no clue about MongoDB,so PostgreSQL was the natural choice.
@@ -90,4 +108,3 @@ You can navigate to `localhost:8294/api-docs` to see available endpoints.
   - I use [ts-standard](https://www.npmjs.com/package/ts-standard) a TypeScript style guide, along with a linter and an automatic code fixer based on StandardJS.
     - Setting up eslint, prettier, and webpack would be overkill for this project.
     - Some may argue that setting up a linter is unnecessary, but I believe that beautiful code is important, so I've included a simple yet effective linter in the project.
-  

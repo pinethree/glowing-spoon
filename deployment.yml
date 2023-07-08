@@ -1,0 +1,101 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vrillar
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vrillar-db
+  namespace: vrillar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vrillar-db
+  template:
+    metadata:
+      labels:
+        app: vrillar-db
+    spec:
+      initContainers:
+        - name: crawler
+          image: crawler:v0.0.3
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      containers:
+        - name: db
+          image: db:v1.0.0
+          env:
+            - name: POSTGRES_USER
+              value: root
+            - name: POSTGRES_PASSWORD
+              value: postgres
+            - name: POSTGRES_DB
+              value: vrillar
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          hostPath:
+            path: /tmp/data
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vrillar-app
+  namespace: vrillar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vrillar-app
+  template:
+    metadata:
+      labels:
+        app: vrillar-app
+    spec:
+      containers:
+        - name: app
+          image: app:v1.0.0
+          ports:
+            - containerPort: 8294
+          env:
+            - name: DB_HOST
+              value: vrillar-app-db.vrillar.svc.cluster.local
+            - name: DB_PORT
+              value: "5432"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vrillar-app-service
+  namespace: vrillar
+spec:
+  selector:
+    app: vrillar-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8294
+      nodePort: 31294
+  type: NodePort
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vrillar-app-db
+  namespace: vrillar
+spec:
+  selector:
+    app: vrillar-db
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+  type: ClusterIP
